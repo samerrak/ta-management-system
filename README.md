@@ -1,4 +1,4 @@
-# Ta-Management-System 2022
+# TA Management System 2022
 Full Stack - TA Management System, Offering McGill Students, Professors, Admins and TAs a New SOA Solution 
 
 Made By Samuel Bergeron and Samer Abdulkarim
