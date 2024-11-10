@@ -5,7 +5,7 @@ Made By Samuel Bergeron and Samer Abdulkarim
 
 Link: https://www.cs.mcgill.ca/~sberge62/COMP307-Final_Project/frontend/home.html
 
-#Sysop Login:
+# Sysop Login:
 
 user: alec.bergeron@mail.mcgill.ca
 password: 12345
