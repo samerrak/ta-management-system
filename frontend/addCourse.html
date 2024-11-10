@@ -1,0 +1,66 @@
+<hmtl>
+    <blockquote>
+    <div>
+        <div id = fileForm>
+            <form method="post" action="../backend/courses/addCourseFromCSV.php" enctype="multipart/form-data">
+                <input id="userId" name="id" type="hidden">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="fileToUpload" >
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>       
+            </form>   
+        </div>
+
+        <br>
+        <br>
+
+        <div id = CourseForm>
+            <form method="post" action="../backend/courses/addCourse.php">
+                <input id="userIdTwo" name="id" type="hidden">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="term" id="inlineRadio1" value="Fall">
+                    <label class="form-check-label" for="inlineRadio1">Fall</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="term" id="inlineRadio2" value="Winter">
+                    <label class="form-check-label" for="inlineRadio2">Winter</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="term" id="inlineRadio3" value="Summer">
+                    <label class="form-check-label" for="inlineRadio3">Summer</label>
+                </div>
+                <input type="month" id="start" name="month" min="2018-03" value="2018-05">
+                <div class="form-group row">
+                    <label for="inputLast" class="col-sm-2 col-form-label">Course Code</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputLast" name="code">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Name of Instructor</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputEmail" name="name">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <style onload="
+            function getParameterByName(name, url = window.location.href) {
+                name = name.replace(/[[]]/g, '\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+            document.getElementById('userId').value= getParameterByName('user');
+            document.getElementById('userIdTwo').value= getParameterByName('user');
+            
+        " ></style>
+    </div>
+    </blockquote>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<title>Rate a TA</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<body onload="onLoad ()">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header" >
+            <a class="navbar-brand" href="#"><a href="#" class="navbar-left" ><img src="../assets/download.png" style= "width: 50px; height: 50px;" ></a></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a style="cursor:pointer;" onclick="showContent('home')">Home</a></li>
+            <li class="active"><a style="cursor:pointer;" onclick="showContent('rate')">Rate a TA</a></li>
+            <li class="active"><a style="cursor:pointer;" onclick="showContent('taManage')">TA Management</a></li>
+            <li class="active"><a href="home.html">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<div id="home">
+    <div style = "clear: both">
+        <span style="font-family: Arial, sans-serif; color:black; padding-top: 100px">
+            <blockquote>
+                <h1>Welcome TA !</h1>
+                <h3>To find your information head to TA Management, and to rate a colleague please head to the Rate a TA section.<br><br> Additional Resources </h3>
+                <ul>
+                <li><a href="https://mycourses2.mcgill.ca/" >MyCourses</a></li>
+                <li><a href="https://www.mcgill.ca/students/courses/calendars/course-search" >Course Directory</a></li>
+                <li><a href="https://www.cs.mcgill.ca/" >SOCS - McGill School of Computer Science</a></li>
+                </ul>
+            </blockquote>
+        </span>
+    </div>
+</div>
+
+<div id="content">
+</div>
+
+<div id="errors">
+</div>
+
+<script>
+    function showContent(param) {
+
+        document.getElementById("home").style.display = "none";
+        document.getElementById("content").style.display = "none";
+
+        if (param == "home") {
+            document.getElementById("home").style.display = "block";
+        } else if (param == "rate") {
+            loadDoc("content", "rateaTA.html");
+        }
+        else if (param == "taManage") {
+            loadDoc("content", "taManagement.html");
+        }
+    }
+
+    async function fetchHtmlAsText(url) {
+        return await (await fetch(url)).text();
+    }
+
+    async function loadDoc(param, url) {
+        const contentDiv = document.getElementById(param);
+        contentDiv.innerHTML = await fetchHtmlAsText(url);
+        document.getElementById(param).style.display="block";
+    }
+
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[[]]/g, '\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function onLoad () {
+
+        if (getParameterByName("Page")) {
+            if (getParameterByName("Page") == "taMan") {
+                showContent('taManage');
+            }
+            if(getParameterByName("Page") == "rateTA") {
+                showContent('rate');
+            }
+        }
+
+        if (getParameterByName('error')) {
+            document.getElementById("errors").innerHTML = "ERROR CODE: " + getParameterByName('error');
+        }
+
+    }
+
+
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COMP307 Final Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    label { display: inline-block; width: 100px; }
+</style>
+
+
+<body onload="onLoad()" class="text-center">
+<blockquote>
+    <form class="form-signin" method="post" action="../backend/user/signup.php">
+        <img class="mb-4" src="../assets/download.png" alt="" width="72" height="150"><br><br>
+        <h1 class="h3 mb-3 font-weight-normal">User Registration</h1><br><br>
+        <label class="sr-only">User</label>
+        <input type="hidden" id="user" class="form-control" placeholder="user"  name="user" value=""><br><br>
+
+        <label class="sr-only">First Name</label>
+        <input type="text" id="inputFirst" class="form-control" placeholder="First Name"  name="firstName"><br><br>
+
+        <label class="sr-only">Last Name</label>
+        <input type="text" id="inputLast" class="form-control" placeholder="Last Name"  name="lastName"><br><br>
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="McGill Email Address"  name="email"><br><br>
+
+        <label class="sr-only">McGill ID</label>
+        <input type="text" class="form-control" placeholder="McGill ID"  name="studentId"><br><br>
+
+        <label class="sr-only">Courses (enter a comma separated list)</label>
+        <input type="text" id="inputCourses" class="form-control" placeholder="COMPXXX,MATHXXX"  name="courses"><br><br>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="text" id="inputPassword" class="form-control" placeholder="Password" name="password"><br><br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Register User</button><br><br>
+        <p class="mt-5 mb-3 text-muted">© 2021-2022</p>
+    </form>
+    <h4 id=errors> </h4>
+</blockquote>
+</body>
+
+<script>
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[[]]/g, '\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function onLoad () {
+        document.getElementById("user").value= getParameterByName('Page');
+
+        if(getParameterByName('error')) {
+            document.getElementById("errors").innerHTML = "ERROR CODE: " + getParameterByName('error');
+        }
+    }
+
+</script>
+</html>

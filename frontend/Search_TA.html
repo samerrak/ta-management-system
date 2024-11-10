@@ -1,0 +1,68 @@
+<html>
+   <div>
+      <!--search the list of courses for a TA-->
+      <div class="main col-12 col-s-12" style="padding-left:20px;">
+         <form action="../backend/admin/Search_TA.php" method="post">
+            <h1>Search Courses by TA</h1>
+            <p>Please fill in first name followed by last name and click Enter</p>
+            <input type="hidden" id = "url" name="url" value="" onload="getVal()">
+            <label>TA Name:</label>
+            <input type="text" name="name" placeholder="John Doe">
+            <br> <!--for formatting the page-->
+            <div style="display:none;" id="output">
+               <br><br><b>TA Name: </b> <span id="name"></span> <br><br>
+               <b>Current courses: </b>
+               <p id="listofcourses"></p>
+            </div>
+            <div style="display:none" id="error">
+               <br><br><b>TA cannot be found in database.</b>
+            </div>
+         </form>
+      </div>
+      <style onload="
+         function getVal() {
+            var ori_url = window.location.href;
+            var updated = ori_url.substring(0, ori_url.lastIndexOf('&Page'));
+            if (updated === '') {
+                document.getElementById('url').value = ori_url;
+            } else {
+                document.getElementById('url').value = updated;
+            }
+        }
+        getVal();
+
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[[]]/g, '\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            //document.write(decodeURIComponent(results[2].replace(/\+/g, ' ')));
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        var page = getParameterByName('Page');
+        if (page === 'searchTA') {
+            if (getParameterByName('Name')) {
+                document.getElementById('output').style.display = 'block';
+                var studentname = getParameterByName('Name');
+                var list = getParameterByName('Courses');
+                const courses = list.split(',');
+                document.getElementById('name').innerHTML = studentname;
+                let ul = document.createElement('ul');
+                document.getElementById('listofcourses').appendChild(ul);
+                courses.forEach(function(course) {
+                    if (!!course) {
+                        let li = document.createElement('li');
+                        ul.appendChild(li);
+                        li.innerHTML += course;
+                    }
+                });
+            }
+            if (getParameterByName('Notfound')) {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+         ">
+      </style>
+   </div>
+</html>

@@ -1,0 +1,209 @@
+<hmtl>
+    <blockquote>
+    <div>
+        <div>
+            <form method="post" id = "addForm" action="../backend/user/signup.php">
+                <h2>ADD NEW USER:</h2>
+                <br>
+                <input name="page" type="hidden" value="sysop">
+                <input id="userIdAdd" name="userId" type="hidden">
+                <div class="form-group row">
+                    <label for="inputFirstAdd" class="col-sm-2 col-form-label">First Name:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputFirstAdd" name="firstName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputLastAdd" class="col-sm-2 col-form-label">Last Name:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputLastAdd" name="lastName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmailAdd" class="col-sm-2 col-form-label">Email:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputEmailAdd" name="email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputIdAdd" class="col-sm-2 col-form-label">McGill Id:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputIdAdd" name="studentId">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPasswordAdd" class="col-sm-2 col-form-label">Password:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputPasswordAdd" name="password">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputCoursesAdd" class="col-sm-2 col-form-label">Courses(comma separated list):</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputCoursesAdd" name="courses">
+                    </div>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio1Add" value="student">
+                    <label class="form-check-label" for="inlineRadio1Add">Student</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio2Add" value="ta">
+                    <label class="form-check-label" for="inlineRadio2Add">Teaching Assistant</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio3Add" value="admin">
+                    <label class="form-check-label" for="inlineRadio3Add">Administrator</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio4Add" value="prof">
+                    <label class="form-check-label" for="inlineRadio4Add">Professor</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio5Add" value="sysop">
+                    <label class="form-check-label" for="inlineRadio5Add">System Operator</label>
+                </div> 
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+        
+        <br>
+        <br>
+
+        <div id = searchForm>
+            <h2>SEARCH EXISTING USER:</h2>
+            <br>
+            <form method="post" action="../backend/user/getUser.php">
+                <input id="userId" name="id" type="hidden">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio1" value="student">
+                    <label class="form-check-label" for="inlineRadio1">Student</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio2" value="ta">
+                    <label class="form-check-label" for="inlineRadio2">Teaching Assistant</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio3" value="admin">
+                    <label class="form-check-label" for="inlineRadio3">Administrator</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio4" value="prof">
+                    <label class="form-check-label" for="inlineRadio4">Professor</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="inlineRadio5" value="sysop">
+                    <label class="form-check-label" for="inlineRadio5">System Operator</label>
+                </div> 
+                <button type="submit" class="btn btn-primary">Search</button>         
+            </form>
+            
+        </div>
+
+        <br>
+        <br>
+
+        <div style="display:none;" id="editForm">
+            <form method="post" id="changeForm" action="">
+                <h2>EDIT / DELETE EXISTING USER:</h2>
+                <br>
+                <input id="userIdtwo" name="id" type="hidden">
+                <input id="userChange" name="user" type="hidden">
+                <div class="form-group row">
+                    <label for="inputFirst" class="col-sm-2 col-form-label">First Name:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputFirst" name="firstName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputLast" class="col-sm-2 col-form-label">Last Name:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputLast" name="lastName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputEmail" name="email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputId" class="col-sm-2 col-form-label">McGill Id</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputId" name="studentId">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputPassword" name="password">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputCourses" class="col-sm-2 col-form-label">Courses (comma separated list)</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputCourses" name="courses">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="
+                    document.getElementById('changeForm').action = '../backend/user/edit.php';
+                    document.getElementById('changeForm').submit();
+                ">Edit</button>
+                <button type="submit" class="btn btn-primary" onclick="
+                    document.getElementById('changeForm').action = '../backend/user/delete.php';
+                    document.getElementById('changeForm').submit();
+                " style="background-color: red;color:white">Delete</button>          
+            </form>
+        </div>
+        <style onload="
+            function getParameterByName(name, url = window.location.href) {
+                name = name.replace(/[[]]/g, '\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+            document.getElementById('userId').value= getParameterByName('user');
+            document.getElementById('userIdAdd').value= getParameterByName('user');
+
+            if(getParameterByName('data')) {
+                
+                document.getElementById('editForm').style.display= 'block';
+
+                const arr = getParameterByName('data').split(',');
+                console.log(arr[5]);
+                document.getElementById('userChange').value= arr[5];
+                document.getElementById('userIdtwo').value= getParameterByName('user');
+
+                let first = arr[2];
+                let last = arr[3];
+                let email = arr[0];
+                let id = arr[4];
+                let password = arr[1];
+
+                let courses = '';
+                
+                for(let i = 6; i < arr.length; i++) {
+                    courses += arr[i] + ',';
+                }
+
+                courses = courses.slice(0, -1);
+
+                document.getElementById('inputFirst').value = first;
+                document.getElementById('inputLast').value = last;
+                document.getElementById('inputEmail').value = email;
+                document.getElementById('inputId').value = id;
+                document.getElementById('inputPassword').value = password;
+                document.getElementById('inputCourses').value = courses;
+            }
+        " ></style>
+    </div>
+    </blockquote>
+</html>

@@ -1,0 +1,48 @@
+<hmtl>
+
+<div style=" font-family:Arial,sans-serif;">
+<blockquote>
+    <form method="post" action="../backend/TAScore/sendTAScore.php" id="usrform">
+        <h2> Rate Your TA ! </h2><br>
+        <input type="hidden" name="function" value="rateaTA">
+
+        <input type="hidden" id = "url" name="url" value="" >
+
+        <label> TA First Name: </label>
+        <input type = "text" placeholder="John Smith" name="TAfirst">
+        <br><br>
+        <label> TA Last Name: </label>
+        <input type = "text" placeholder="John Smith" name="TAlast" onload="getVal()">
+        <br><br>
+        <label>Course: </label>
+        <input type = "text" placeholder="COMPXXX" name="course">
+        <br><br>
+        <label>Term: </label>
+        <input type = "text" placeholder="Fall 20XX" name="term">
+        <br><br>
+        <label>Score: </label>
+        <input type="radio" name="score" value=0 > 0
+        <input type="radio" name="score" value=1> 1
+        <input type="radio" name="score" value=2> 2
+        <input type="radio" name="score" value=3> 3
+        <input type="radio" name="score" value=4> 4
+        <input type="radio" name="score" value=5> 5
+        <br><br>
+        <input type="submit" value="Submit"> <br><br>
+    </form>
+    <textarea rows="4" cols="50" name="comment" form="usrform"> Description:</textarea>
+    <h4 id=errors> </h4>
+</blockquote>
+
+</div>
+<style onload="
+function getVal(){
+                document.getElementById('url').value = window.location.href;
+    }
+    getVal();
+">
+
+</style>
+
+
+</html>

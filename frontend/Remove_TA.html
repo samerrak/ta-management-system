@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <div class="main col-12 col-s-12" style="padding-left:20px;">
+         <form action="../backend/admin/Remove_TA.php" method="post">
+            <input type="hidden" id = "url" name="url" value="" onload="getVal()">
+            <h1>Remove TA to Course</h1>
+            <p>Please fill in all fields and click Remove</p>
+            <h2>TA Information</h2>
+            <label>Term:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="term">
+            <br> <!--for formatting the page-->
+            <br>
+            <label>Course:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="cour">
+            <br> <!--for formatting the page-->
+            <br>
+            <label>TA Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="name">
+            <br> <!--for formatting the page-->
+            <br>
+            <label>Student ID:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="id">
+            <br> <!--for formatting the page-->
+            <br>
+            <label>Assigned Hours:</label>&nbsp;&nbsp;
+            <input type="text" name="hours">
+            <br> <!--for formatting the page-->
+            <br>
+            <label>Email:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="email">
+            <br> <!--for formatting the page-->
+            <br>
+            <!--remove TA from TACohort.csv and NumTARequired.csv-->
+            <input type="submit" value="Remove">
+            <div style="display:none;" id="output">
+               <br><br>
+               <p><span id="name"> </span><span> is successfully removed from </span><span id="cour"></span><span> (</span><span id="term"></span><span>)!</span></p>
+            </div>
+            <div style="display:none" id="error">
+               <br><br><b>Removal was unsuccessful. Check if TA and course names exist in database.</b>
+            </div>
+         </form>
+      </div>
+      <style onload="
+        function getVal() {
+            var ori_url = window.location.href;
+            var updated = ori_url.substring(0, ori_url.lastIndexOf('&Page'));
+            if (updated === '') {
+                document.getElementById('url').value = ori_url;
+            } else {
+                document.getElementById('url').value = updated;
+            }
+        }
+        getVal();
+
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[[]]/g, '\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        var page = getParameterByName('Page');
+        if (page === 'removeTA') {
+            if (getParameterByName('Name')) {
+                document.getElementById('output').style.display = 'block';
+                var studentname = getParameterByName('Name');
+                var cour = getParameterByName('Courses');
+                var term = getParameterByName('term');
+                document.getElementById('name').innerHTML = studentname;
+                document.getElementById('cour').innerHTML = cour;
+                document.getElementById('term').innerHTML = term;
+            }
+            if (getParameterByName('Notfound')) {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+        ">
+      </style>
+   </body>
+</html>

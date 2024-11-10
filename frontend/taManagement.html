@@ -1,0 +1,262 @@
+<hmtl>
+    <blockquote>
+    <div>
+
+        <div>
+            <form>
+                <div class="form-group">
+                  <label for="selector">Choose Class</label>
+                  <select class="form-control" id="selector">
+                  </select>
+                </div>
+            </form>
+            <button type="submit" class="btn btn-primary" onclick="
+                function isProfessor( url = window.location.href) {
+                    return url.includes('prof.html') || url.includes('sysop.html') || url.includes('admin.html')
+                }
+
+                function getParameterByName(name, url = window.location.href) {
+                    name = name.replace(/[[]]/g, '\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+
+                function populateSelectorTA(response, selector) {
+                    var uc_selector = document.getElementById(selector);
+                    uc_selector.innerHTML='';
+                    var newOption;
+                    for (var i=0; i< response.length; i++) {
+                        newOption = document.createElement('option'); 
+                        newOption.value = response[i][2] + ' ' + response[i][3]; 
+                        newOption.text= response[i][2] + ' ' + response[i][3];
+                        try { 
+                            uc_selector.add(newOption); 
+                        } catch (e) { 
+                            uc_selector.appendChild(newOption);
+                        }
+                    } 
+                }
+
+                function whichRole( url = window.location.href) {
+                    if(url.includes('prof.html')) {
+                        return 'prof';
+                    } else if (url.includes('sysop.html')) {
+                        return 'sysop';
+                    } else if (url.includes('admin.html')) {
+                        return 'admin';
+                    } else {
+                        return 'ta'
+                    }
+                }
+
+                document.getElementById('userIdOH').value = getParameterByName('user');
+                document.getElementById('courseOH').value = document.getElementById('selector').value;
+                document.getElementById('userRoleOH').value = whichRole();
+
+                console.log(whichRole());
+
+                if(whichRole() == 'admin' || whichRole() == 'sysop') {
+                    document.getElementById('warning').style.display= 'block';
+                    document.getElementById('warning').innerHTML='*NOTE: SINCE YOU ARE NOT LOGGED IN AS A TA OR A PROF YOU CANNOT INTERACT WITH THE FOLLOWING FORMS';
+                    document.getElementById('buttonOH').disabled= true;
+                    document.getElementById('buttonPerf').disabled= true;
+                    document.getElementById('buttonWish').disabled= true;
+                }
+
+                if(isProfessor()) {
+                    document.getElementById('officehours').style.display= 'block';
+                    document.getElementById('taPerformancelog').style.display= 'block';
+                    document.getElementById('taWishList').style.display= 'block';
+
+                    document.getElementById('coursePerform').value = document.getElementById('selector').value;
+                    document.getElementById('courseWish').value = document.getElementById('selector').value;
+
+                    document.getElementById('userRolePerf').value = whichRole();
+                    document.getElementById('userRoleWish').value = whichRole();
+
+                    document.getElementById('idWish').value=getParameterByName('user');
+
+                    $.ajax({
+                        url: '../backend/user/getTAs.php',
+                        type: 'post',
+                        success: function(response) {
+                            let arr = JSON.parse(response);
+                            populateSelectorTA(arr, 'selectorTaAll'); 
+                            let temp=[];
+                            arr.forEach(element => {
+                                if(element[5].includes(document.getElementById('selector').value.split(',')[1])) {
+                                    temp.push(element)
+                                }
+                            });
+
+                            if(temp.length !== 0) {
+                                populateSelectorTA(temp, 'selectorTAPerf');
+                            } else {
+                                document.getElementById('buttonPerf').disabled= true;
+                            }
+                            
+                        }
+                    });
+
+                } else {
+                    document.getElementById('officehours').style.display= 'block';
+                }
+
+            ">Select</button>
+        </div>
+
+        <br>
+        <br>
+
+        
+        <div id="officehours" style="display: none;">
+            <h2>OFFICE HOURS:</h2>
+            <form method="post" action="../backend/TAadmin/setOfficeHours.php">
+                <input type="hidden" class="form-control" id="courseOH" name="course">
+                <input type="hidden" class="form-control" id="userIdOH" name="id">
+                <input type="hidden" class="form-control" id="userRoleOH" name="user">
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="dayOfWeek">
+                    <option selected>Day Of the Week</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                </select>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="time" name="timeOHF" id="timeOHF" value="student">
+                    <label class="form-check-label" for="timeOHF">From</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="time" name="timeOHT" id="timeOHT" value="student">
+                    <label class="form-check-label" for="timeOHT">To</label>
+                </div>
+                <div class="form-group row">
+                    <label for="role" class="col-sm-2 col-form-label">Role</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="role" name="role">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="role" class="col-sm-2 col-form-label">Location</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="location" name="location">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="buttonOH">Submit</button>         
+            </form>
+        </div>
+
+        <br>
+        <br>
+
+        <div id="taPerformancelog" style="display: none;">
+            <h2>TA PERFORMANCE LOG:</h2>
+            <form method="post" action="../backend/TAadmin/setTaPerformance.php">
+                <input type="hidden" class="form-control" id="coursePerform" name="course">
+                <input type="hidden" class="form-control" id="userRolePerf" name="user">
+                <div class="form-group">
+                    <label for="selectorTAPerf">Choose TA</label>
+                    <select class="form-control" id="selectorTAPerf" name="taName">
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="role" class="col-sm-2 col-form-label">Note</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="role" name="note">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="buttonPerf">Submit</button>         
+            </form>
+        </div>
+
+        <br>
+        <br>
+
+        <div id="taWishList" style="display: none;">
+            <h2>TA WISH LIST:</h2>
+            <form method="post" action="../backend/TAadmin/setTaWishList.php">
+                <input type="hidden" class="form-control" id="courseWish" name="course">
+                <input type="hidden" class="form-control" id="idWish" name="id">
+                <input type="hidden" class="form-control" id="userRoleWish" name="user">
+                <div class="form-group">
+                    <label for="selectorTaAll">Choose TA</label>
+                    <select class="form-control" id="selectorTaAll" name="taName">
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="buttonWish">Submit</button>         
+            </form>
+        </div>
+
+        <br>
+        <br>
+
+        <div id="warning" style="color:red;display: none;">
+        </div>
+        
+        
+        <style onload="
+            function getParameterByName(name, url = window.location.href) {
+                name = name.replace(/[[]]/g, '\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+            function isProfessor( url = window.location.href) {
+                return url.includes('prof.html') || url.includes('sysop.html') || url.includes('admin.html')
+            }
+
+            function getCourseData() {
+                if(isProfessor()) {
+                    $.ajax({
+                        url: '../backend/courses/getCourses.php',
+                        type: 'post',
+                        success: function(response) { 
+                            let arr = JSON.parse(response);
+                            populateSelector(arr);
+                        }
+                    });
+                } else {
+                    let user = getParameterByName('user')
+                    $.ajax({
+                        url: '../backend/user/getUserTA.php',
+                        type: 'post',
+                        data: { 'user': user},
+                        success: function(response) { 
+                            let arr = JSON.parse(response);
+                            populateSelector(arr) 
+                        }
+                    });
+                }
+            }
+
+            function populateSelector(response) { 
+                var uc_selector = document.getElementById('selector');
+                var newOption;
+                for (var i=0; i< response.length; i++) {
+                    newOption = document.createElement('option'); 
+                    newOption.value = response[i][0] + ',' + response[i][1]; 
+                    let string = response[i][0].split('_');
+                    let term = string[0] + ' ' + string[1];
+                    newOption.text= term + ' ' + response[i][1];
+                    try { 
+                        uc_selector.add(newOption); 
+                    } catch (e) { 
+                        uc_selector.appendChild(newOption);
+                    } 
+                }
+            }
+
+            getCourseData();
+
+            
+        " ></style>
+    </div>
+    </blockquote>
+</html>

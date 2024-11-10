@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>COMP307 Final Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header" >
+            <a class="navbar-brand" href="#"><a href="#" class="navbar-left" ><img src="../assets/download.png" style= "width: 50px; height: 50px;" ></a></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a style="cursor:pointer;" href="login.html?Page=student">
+                <input type="hidden" name="user" value="student">
+                Student</a></li>
+
+            <li class="active"><a style="cursor:pointer;" href="login.html?Page=ta">
+                <input type="hidden" name="user" value="ta">
+                TA</a></li>
+
+            <li class="active"><a style="cursor:pointer;" href="login.html?Page=prof">
+                <input type="hidden" name="user" value="prof">
+                Professor</a></li>
+
+            <li class="active"><a style="cursor:pointer;" href="login.html?Page=sysop">
+                <input type="hidden" name="user" value="sysop">
+                SysOp</a></li>
+
+            <li class="active"><a style="cursor:pointer;" href="login.html?Page=admin">
+                <input type="hidden" name="user" value="admin">
+                Admin</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div id="home">
+    <div style = "clear: both">
+        <span style="font-family: Arial, sans-serif; color:black; padding-top: 100px">
+            <blockquote>
+                <h1>Welcome User!</h1>
+                <h3> Please choose what type of user are you based on the selections above<br><br> Additional Resources </h3>
+                <ul>
+                <li><a href="https://mycourses2.mcgill.ca/" style="text-underline: none">MyCourses</a></li>
+                <li><a href="https://www.mcgill.ca/students/courses/calendars/course-search" style="text-underline: none">Course Directory</a></li>
+                <li><a href="https://www.cs.mcgill.ca/" style="text-underline: none">SOCS - McGill School of Computer Science</a></li>
+                </ul>
+            </blockquote>
+        </span>
+    </div>
+</div>
+
+
+</body>
+</html>
+
